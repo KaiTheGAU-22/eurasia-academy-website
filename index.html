@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eurasia Academy of Humanities — Lux ex Pontibus</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cinzel:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C5A255;
+    --gold-light: #E8D5A3;
+    --gold-dark: #8B6914;
+    --burgundy: #6B1D2A;
+    --burgundy-deep: #3E0F18;
+    --ivory: #F5F0E8;
+    --ivory-warm: #EDE5D5;
+    --parchment: #E8DCC8;
+    --ink: #1A1410;
+    --ink-light: #3A3228;
+    --stone: #8A8070;
+    --forest: #2C3E2D;
+    --shadow: rgba(26, 20, 16, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'EB Garamond', 'Georgia', serif;
+    background: var(--ivory);
+    color: var(--ink);
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* === TEXTURE OVERLAY === */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* === NAVIGATION === */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: linear-gradient(180deg, rgba(26,20,16,0.95) 0%, rgba(26,20,16,0.85) 100%);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gold-dark);
+    transition: all 0.4s ease;
+  }
+
+  nav .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 2rem;
+  }
+
+  nav .nav-logo {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  nav .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  nav .nav-links a {
+    font-family: 'Cinzel', serif;
+    color: var(--ivory-warm);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  nav .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+
+  nav .nav-links a:hover { color: var(--gold); }
+  nav .nav-links a:hover::after { width: 100%; }
+
+  /* === HERO === */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(107,29,42,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 80%, rgba(197,162,85,0.08) 0%, transparent 50%),
+      linear-gradient(180deg, var(--ink) 0%, #2A2118 40%, #3A2E22 70%, var(--burgundy-deep) 100%);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      repeating-linear-gradient(90deg, transparent, transparent 99px, rgba(197,162,85,0.04) 99px, rgba(197,162,85,0.04) 100px),
+      repeating-linear-gradient(0deg, transparent, transparent 99px, rgba(197,162,85,0.04) 99px, rgba(197,162,85,0.04) 100px);
+    pointer-events: none;
+  }
+
+  /* Decorative border frame */
+  .hero-frame {
+    position: absolute;
+    top: 40px; left: 40px; right: 40px; bottom: 40px;
+    border: 1px solid rgba(197,162,85,0.15);
+    pointer-events: none;
+  }
+  .hero-frame::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 1px solid rgba(197,162,85,0.08);
+  }
+
+  /* Corner ornaments */
+  .corner { position: absolute; width: 40px; height: 40px; }
+  .corner svg { width: 100%; height: 100%; }
+  .corner-tl { top: 30px; left: 30px; }
+  .corner-tr { top: 30px; right: 30px; transform: scaleX(-1); }
+  .corner-bl { bottom: 30px; left: 30px; transform: scaleY(-1); }
+  .corner-br { bottom: 30px; right: 30px; transform: scale(-1,-1); }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    animation: heroFadeIn 2s ease forwards;
+  }
+
+  @keyframes heroFadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-crest {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 2rem;
+    opacity: 0;
+    animation: crestReveal 1.5s 0.5s ease forwards;
+  }
+
+  @keyframes crestReveal {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .hero-title-pre {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.8s ease forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Cinzel Decorative', serif;
+    color: var(--ivory);
+    font-size: clamp(2.2rem, 5vw, 4.2rem);
+    font-weight: 400;
+    letter-spacing: 4px;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    opacity: 0;
+    animation: fadeUp 1s 1s ease forwards;
+  }
+
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.5rem auto;
+    opacity: 0;
+    animation: fadeUp 1s 1.2s ease forwards;
+  }
+
+  .hero-divider .line {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .hero-divider .diamond {
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--gold);
+    transform: rotate(45deg);
+  }
+
+  .hero-motto {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--gold-light);
+    font-size: 1.4rem;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 1.4s ease forwards;
+  }
+
+  .hero-motto-trans {
+    font-family: 'EB Garamond', serif;
+    color: rgba(245,240,232,0.5);
+    font-size: 0.9rem;
+    font-style: italic;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeUp 1s 1.6s ease forwards;
+  }
+
+  .hero-founded {
+    font-family: 'Cinzel', serif;
+    color: rgba(197,162,85,0.4);
+    font-size: 0.7rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeUp 1s 1.8s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s 2.2s ease forwards;
+  }
+
+  .scroll-indicator span {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    color: rgba(197,162,85,0.4);
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 30px;
+    background: linear-gradient(180deg, var(--gold), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+
+  /* === SECTIONS === */
+  section {
+    position: relative;
+    padding: 6rem 2rem;
+  }
+
+  .section-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Section ornamental header */
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-header .epoch {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-header h2 {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 400;
+    color: var(--burgundy-deep);
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+  }
+
+  .section-header .ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .ornament .o-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .ornament .o-dot {
+    width: 5px;
+    height: 5px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+  }
+
+  .section-prose {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: var(--ink-light);
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .section-prose .dropcap::first-letter {
+    font-family: 'Cinzel Decorative', serif;
+    float: left;
+    font-size: 4.5rem;
+    line-height: 0.8;
+    padding-right: 0.6rem;
+    padding-top: 0.2rem;
+    color: var(--burgundy);
+  }
+
+  /* === ABOUT / INTRO === */
+  .about {
+    background:
+      linear-gradient(180deg, var(--ivory) 0%, var(--ivory-warm) 100%);
+    border-bottom: 1px solid rgba(197,162,85,0.2);
+  }
+
+  .about .quote-block {
+    margin: 3rem 0;
+    padding: 2.5rem 3rem;
+    border-left: 3px solid var(--gold);
+    background: linear-gradient(90deg, rgba(197,162,85,0.06), transparent);
+    position: relative;
+  }
+
+  .about .quote-block::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 5rem;
+    color: rgba(197,162,85,0.15);
+    line-height: 1;
+  }
+
+  .about .quote-block p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--ink-light);
+    line-height: 1.8;
+  }
+
+  /* === HISTORY TIMELINE === */
+  .history {
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(107,29,42,0.04) 0%, transparent 50%),
+      linear-gradient(180deg, var(--ivory-warm) 0%, var(--parchment) 50%, var(--ivory-warm) 100%);
+  }
+
+  .timeline {
+    position: relative;
+    margin-top: 3rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, var(--gold), var(--gold), transparent);
+  }
+
+  .timeline-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 4rem;
+    position: relative;
+    opacity: 0;
+    animation: timelineReveal 0.8s ease forwards;
+  }
+
+  .timeline-item:nth-child(1) { animation-delay: 0.2s; }
+  .timeline-item:nth-child(2) { animation-delay: 0.4s; }
+  .timeline-item:nth-child(3) { animation-delay: 0.6s; }
+  .timeline-item:nth-child(4) { animation-delay: 0.8s; }
+
+  @keyframes timelineReveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .timeline-item:nth-child(odd) { flex-direction: row; }
+  .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+
+  .timeline-date {
+    flex: 0 0 calc(50% - 40px);
+    text-align: right;
+    padding-right: 2rem;
+  }
+
+  .timeline-item:nth-child(even) .timeline-date {
+    text-align: left;
+    padding-right: 0;
+    padding-left: 2rem;
+  }
+
+  .timeline-date .year {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 2rem;
+    color: var(--burgundy);
+    display: block;
+    line-height: 1;
+  }
+
+  .timeline-date .period {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-top: 0.3rem;
+  }
+
+  .timeline-node {
+    flex: 0 0 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 8px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .timeline-node .dot {
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--gold);
+    background: var(--ivory-warm);
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .timeline-node .dot::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4px;
+    height: 4px;
+    background: var(--burgundy);
+    border-radius: 50%;
+  }
+
+  .timeline-body {
+    flex: 0 0 calc(50% - 40px);
+    padding-left: 2rem;
+  }
+
+  .timeline-item:nth-child(even) .timeline-body {
+    padding-left: 0;
+    padding-right: 2rem;
+    text-align: right;
+  }
+
+  .timeline-body h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+    letter-spacing: 1px;
+  }
+
+  .timeline-body p {
+    font-size: 1rem;
+    color: var(--ink-light);
+    line-height: 1.8;
+  }
+
+  /* === PILLARS === */
+  .pillars {
+    background:
+      linear-gradient(180deg, var(--ink) 0%, #1E1812 100%);
+    color: var(--ivory);
+  }
+
+  .pillars .section-header .epoch { color: var(--gold); }
+  .pillars .section-header h2 { color: var(--ivory); }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .pillar-card {
+    background: linear-gradient(135deg, rgba(197,162,85,0.06) 0%, rgba(197,162,85,0.02) 100%);
+    border: 1px solid rgba(197,162,85,0.15);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+  }
+
+  .pillar-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .pillar-card:hover::before { opacity: 1; }
+  .pillar-card:hover {
+    background: linear-gradient(135deg, rgba(197,162,85,0.1) 0%, rgba(197,162,85,0.04) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  .pillar-icon {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .pillar-card h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+  }
+
+  .pillar-card p {
+    font-size: 0.95rem;
+    color: rgba(245,240,232,0.7);
+    line-height: 1.8;
+  }
+
+  /* === REPUTATION === */
+  .reputation {
+    background:
+      radial-gradient(ellipse at 70% 30%, rgba(107,29,42,0.06) 0%, transparent 50%),
+      linear-gradient(180deg, var(--ivory-warm) 0%, var(--ivory) 100%);
+  }
+
+  .reputation .highlight-box {
+    margin: 3rem 0;
+    padding: 3rem;
+    background: linear-gradient(135deg, var(--burgundy-deep) 0%, var(--burgundy) 100%);
+    color: var(--ivory);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .highlight-box::before, .highlight-box::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .highlight-box::before { top: 0; left: 0; }
+  .highlight-box::after { bottom: 0; left: 0; }
+
+  .highlight-box .hl-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .highlight-box blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--ivory);
+  }
+
+  /* === CAMPUS === */
+  .campus {
+    background: linear-gradient(180deg, var(--ivory) 0%, var(--parchment) 100%);
+    border-top: 1px solid rgba(197,162,85,0.15);
+  }
+
+  .campus-feature {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+
+  .campus-visual {
+    aspect-ratio: 4/3;
+    background:
+      linear-gradient(135deg, var(--burgundy-deep) 0%, var(--ink) 100%);
+    border: 1px solid rgba(197,162,85,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .campus-visual::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(197,162,85,0.1);
+  }
+
+  .campus-visual .arch-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .campus-visual .vault-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    display: block;
+    opacity: 0.6;
+  }
+
+  .campus-text h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    color: var(--burgundy-deep);
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+  }
+
+  .campus-text p {
+    font-size: 1.05rem;
+    color: var(--ink-light);
+    line-height: 1.8;
+  }
+
+  /* === FOOTER === */
+  footer {
+    background: var(--ink);
+    color: var(--ivory);
+    padding: 4rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+  }
+
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .footer-crest {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 1.5rem;
+    opacity: 0.6;
+  }
+
+  .footer-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-motto {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(245,240,232,0.4);
+    margin-bottom: 2rem;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-address {
+    font-size: 0.9rem;
+    color: rgba(245,240,232,0.3);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .footer-divider {
+    width: 40px;
+    height: 1px;
+    background: rgba(197,162,85,0.3);
+    margin: 2rem auto;
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: rgba(245,240,232,0.2);
+    letter-spacing: 1px;
+  }
+
+  /* === SCROLL ANIMATIONS === */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    nav .nav-links { display: none; }
+
+    .hero-frame { top: 20px; left: 20px; right: 20px; bottom: 20px; }
+    .corner-tl { top: 12px; left: 12px; }
+    .corner-tr { top: 12px; right: 12px; }
+    .corner-bl { bottom: 12px; left: 12px; }
+    .corner-br { bottom: 12px; right: 12px; }
+
+    section { padding: 4rem 1.5rem; }
+
+    .timeline::before { left: 20px; }
+
+    .timeline-item,
+    .timeline-item:nth-child(even) {
+      flex-direction: column !important;
+      padding-left: 50px;
+    }
+
+    .timeline-date,
+    .timeline-item:nth-child(even) .timeline-date {
+      flex: none;
+      text-align: left !important;
+      padding: 0 0 0.5rem 0 !important;
+    }
+
+    .timeline-node {
+      position: absolute;
+      left: 14px;
+      top: 5px;
+    }
+
+    .timeline-body,
+    .timeline-item:nth-child(even) .timeline-body {
+      flex: none;
+      padding: 0 !important;
+      text-align: left !important;
+    }
+
+    .pillars-grid { grid-template-columns: 1fr; }
+
+    .campus-feature { grid-template-columns: 1fr; }
+
+    .about .quote-block { padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">EAH · Tallinn</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#history">History</a></li>
+      <li><a href="#pillars">Pillars</a></li>
+      <li><a href="#campus">Campus</a></li>
+      <li><a href="#reputation">Legacy</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-frame"></div>
+
+  <div class="corner corner-tl">
+    <svg viewBox="0 0 40 40" fill="none">
+      <path d="M0 40 L0 0 L40 0" stroke="rgba(197,162,85,0.3)" stroke-width="1"/>
+      <path d="M0 30 L0 10 L10 10 L10 0" stroke="rgba(197,162,85,0.15)" stroke-width="1" fill="none"/>
+    </svg>
+  </div>
+  <div class="corner corner-tr">
+    <svg viewBox="0 0 40 40" fill="none">
+      <path d="M0 40 L0 0 L40 0" stroke="rgba(197,162,85,0.3)" stroke-width="1"/>
+      <path d="M0 30 L0 10 L10 10 L10 0" stroke="rgba(197,162,85,0.15)" stroke-width="1" fill="none"/>
+    </svg>
+  </div>
+  <div class="corner corner-bl">
+    <svg viewBox="0 0 40 40" fill="none">
+      <path d="M0 40 L0 0 L40 0" stroke="rgba(197,162,85,0.3)" stroke-width="1"/>
+      <path d="M0 30 L0 10 L10 10 L10 0" stroke="rgba(197,162,85,0.15)" stroke-width="1" fill="none"/>
+    </svg>
+  </div>
+  <div class="corner corner-br">
+    <svg viewBox="0 0 40 40" fill="none">
+      <path d="M0 40 L0 0 L40 0" stroke="rgba(197,162,85,0.3)" stroke-width="1"/>
+      <path d="M0 30 L0 10 L10 10 L10 0" stroke="rgba(197,162,85,0.15)" stroke-width="1" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <!-- Academy Crest SVG -->
+    <div class="hero-crest">
+      <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Shield shape -->
+        <path d="M60 10 L100 30 L100 70 Q100 100 60 115 Q20 100 20 70 L20 30 Z" stroke="rgba(197,162,85,0.6)" stroke-width="1.5" fill="rgba(197,162,85,0.05)"/>
+        <path d="M60 18 L92 35 L92 68 Q92 94 60 107 Q28 94 28 68 L28 35 Z" stroke="rgba(197,162,85,0.3)" stroke-width="0.75" fill="none"/>
+        <!-- Bridge symbol -->
+        <path d="M38 72 Q50 52 60 72 Q70 52 82 72" stroke="rgba(197,162,85,0.7)" stroke-width="1.5" fill="none"/>
+        <!-- Star / Light -->
+        <circle cx="60" cy="45" r="4" fill="rgba(197,162,85,0.5)"/>
+        <line x1="60" y1="35" x2="60" y2="38" stroke="rgba(197,162,85,0.4)" stroke-width="1"/>
+        <line x1="60" y1="52" x2="60" y2="55" stroke="rgba(197,162,85,0.4)" stroke-width="1"/>
+        <line x1="50" y1="45" x2="53" y2="45" stroke="rgba(197,162,85,0.4)" stroke-width="1"/>
+        <line x1="67" y1="45" x2="70" y2="45" stroke="rgba(197,162,85,0.4)" stroke-width="1"/>
+        <line x1="53" y1="38" x2="55" y2="40" stroke="rgba(197,162,85,0.3)" stroke-width="0.75"/>
+        <line x1="67" y1="38" x2="65" y2="40" stroke="rgba(197,162,85,0.3)" stroke-width="0.75"/>
+        <line x1="53" y1="52" x2="55" y2="50" stroke="rgba(197,162,85,0.3)" stroke-width="0.75"/>
+        <line x1="67" y1="52" x2="65" y2="50" stroke="rgba(197,162,85,0.3)" stroke-width="0.75"/>
+        <!-- Book -->
+        <path d="M50 82 L60 78 L70 82 L60 86 Z" stroke="rgba(197,162,85,0.4)" stroke-width="0.75" fill="rgba(197,162,85,0.08)"/>
+      </svg>
+    </div>
+
+    <p class="hero-title-pre">The Academy at Tallinn</p>
+    <h1>Eurasia Academy<br>of Humanities</h1>
+
+    <div class="hero-divider">
+      <span class="line"></span>
+      <span class="diamond"></span>
+      <span class="line"></span>
+    </div>
+
+    <p class="hero-motto">Lux ex Pontibus</p>
+    <p class="hero-motto-trans">Light from the Bridges</p>
+
+    <p class="hero-founded">Founded MCMXXV · Tallinn, Estonia</p>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>Discover</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <p class="epoch">A Living Archive</p>
+      <h2>A Sanctuary & A Bridge</h2>
+      <div class="ornament">
+        <span class="o-line"></span>
+        <span class="o-dot"></span>
+        <span class="o-line"></span>
+      </div>
+    </div>
+
+    <div class="section-prose reveal">
+      <p class="dropcap">Nestled between the Gothic spires of Tallinn's Old Town and the sleek lines of its modern creative city, the Eurasia Academy of Humanities is more than a university; it is a living archive of the continent's soul and a forge for its future thinkers. Its fame rests not on ancient medieval foundations, but on a unique 20th-century destiny as a sanctuary and a bridge.</p>
+    </div>
+
+    <div class="quote-block reveal">
+      <p>To study at the EAH is to inherit a legacy of defiance, preservation, and dialogue — the place where the deep past of Eurasia is meticulously studied not for nostalgia, but to illuminate the paths of its future.</p>
+    </div>
+
+    <div class="section-prose reveal">
+      <p>The Academy is not a traditional university but a <em>higher academy for advanced scholarship and public intellect</em>. Small, selective, and fiercely independent, it is consistently ranked among the top specialized institutions in the world for humanities research. Its students — both graduate and exceptional undergraduates — are known as <strong>Bridge-Scholars</strong>, inheritors of a luminous bridge between memory and possibility.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section class="history" id="history">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <p class="epoch">Annus Domini MCMXXV — Present</p>
+      <h2>Chronicle of the Academy</h2>
+      <div class="ornament">
+        <span class="o-line"></span>
+        <span class="o-dot"></span>
+        <span class="o-line"></span>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">
+          <span class="year">1925</span>
+          <span class="period">A Defiant Vision</span>
+        </div>
+        <div class="timeline-node"><div class="dot"></div></div>
+        <div class="timeline-body">
+          <h3>The Founding</h3>
+          <p>In the fragile dawn of Estonia's first independence, philosopher-diplomat Johan Kallas led a visionary circle of Estonian intellectuals, exiled Russian philosophers, and German-Jewish scholars to conceive an institution unlike any other. Its original home was a repurposed merchant's palace on Suur-Kloostri street — a "third space" positioned symbolically between the German-dominated Toompea hill and the Russian-influenced Kalamaja district.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">
+          <span class="year">1925–1940</span>
+          <span class="period">The Interwar Beacon</span>
+        </div>
+        <div class="timeline-node"><div class="dot"></div></div>
+        <div class="timeline-body">
+          <h3>A Haven for Lost Knowledge</h3>
+          <p>The Academy became the leading Western center for Byzantine theology, Finno-Ugric linguistics, and Russian Silver Age poetry. Its famous "Bridge Lecture Series" featured thinkers like Nikolai Berdyaev and Martti Haavio. The Academy's journal, <em>Eurasian Dialogues</em>, became a coveted item in academic libraries from Cambridge to Kyoto.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">
+          <span class="year">1940–1991</span>
+          <span class="period">The Great Ordeal</span>
+        </div>
+        <div class="timeline-node"><div class="dot"></div></div>
+        <div class="timeline-body">
+          <h3>The Hidden College</h3>
+          <p>Under the successive Soviet occupations, the Academy was officially dissolved. But under the leadership of Rector Liina Veskimägi, it went underground. Its priceless library was secretly dispersed among trusted citizens in Tallinn and on the island of Hiiumaa. Faculty tutored students in private apartments, preserving banned curricula in comparative mythology, structural linguistics, and ethics — becoming a potent symbol of intellectual resistance across the Eastern Bloc.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">
+          <span class="year">1991</span>
+          <span class="period">Re-Emergence</span>
+        </div>
+        <div class="timeline-node"><div class="dot"></div></div>
+        <div class="timeline-body">
+          <h3>Phoenix of the Mind</h3>
+          <p>With Estonia's restored independence, the EAH re-opened its doors in a triumphant public ceremony. Its original endowment, safeguarded in Swiss banks, allowed it to rebuild swiftly. The Academy expanded to a new, award-winning campus in the Telliskivi creative quarter — a metaphor for its eternal blend of the ancient and the new.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="pillars" id="pillars">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <p class="epoch">Cornerstones of Excellence</p>
+      <h2>Pillars of Modern Fame</h2>
+      <div class="ornament">
+        <span class="o-line"></span>
+        <span class="o-dot"></span>
+        <span class="o-line"></span>
+      </div>
+    </div>
+
+    <div class="pillars-grid">
+      <div class="pillar-card reveal">
+        <span class="pillar-icon">🏛️</span>
+        <h3>The Veskimägi Fellowship</h3>
+        <p>The most prestigious post-doctoral award in comparative humanities, named after the heroic second Rector who led the Academy underground. The Fellowship attracts brilliant young scholars from every continent, honoring the spirit of intellectual courage.</p>
+      </div>
+
+      <div class="pillar-card reveal">
+        <span class="pillar-icon">📜</span>
+        <h3>The Lost Library Project</h3>
+        <p>A monumental digitization effort making hundreds of thousands of "lost" texts from across Eurasia freely available online — works of thinkers suppressed by both Nazi and Soviet regimes, restored to the world's collective memory.</p>
+      </div>
+
+      <div class="pillar-card reveal">
+        <span class="pillar-icon">🕯️</span>
+        <h3>The Tallinn Conclave</h3>
+        <p>An annual, invitation-only gathering of historians, writers, and political theorists held in the Old Town's medieval halls. Known for producing groundbreaking joint manifestos on the future of European and Asian civilizational dialogue.</p>
+      </div>
+
+      <div class="pillar-card reveal">
+        <span class="pillar-icon">🔬</span>
+        <h3>The New Bridge Mission</h3>
+        <p>Pioneering interdisciplinary programs in Digital Cultural Semiotics, Memory Politics &amp; Transitional Justice, and Arctic Humanities — addressing the challenges of the 21st century through a deep and luminous historical lens.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPUS -->
+<section class="campus" id="campus">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <p class="epoch">Telliskivi Creative Quarter</p>
+      <h2>The Glass Vault</h2>
+      <div class="ornament">
+        <span class="o-line"></span>
+        <span class="o-dot"></span>
+        <span class="o-line"></span>
+      </div>
+    </div>
+
+    <div class="campus-feature reveal">
+      <div class="campus-visual">
+        <div class="arch-text">
+          <span class="vault-icon">🏗</span>
+          <br>
+          The Glass Vault<br><br>
+          A modern glass structure<br>
+          built within the preserved<br>
+          stone shell of a<br>
+          19th-century factory
+        </div>
+      </div>
+      <div class="campus-text">
+        <h3>Fragile Knowledge, Resilient History</h3>
+        <p>The Academy's main building is an architectural marvel — a luminous modern glass structure built within the preserved stone shell of a 19th-century factory. It stands as a powerful symbol of the Academy's enduring philosophy: fragile knowledge protected by resilient history.</p>
+        <br>
+        <p>The campus in Tallinn's Telliskivi creative quarter serves as a metaphor for the Academy itself — a place where the ancient and the innovative exist in perpetual dialogue, where the weight of centuries gives structure to the imagination of tomorrow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REPUTATION -->
+<section class="reputation" id="reputation">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <p class="epoch">A Legacy Unbroken</p>
+      <h2>Reputation & Legacy</h2>
+      <div class="ornament">
+        <span class="o-line"></span>
+        <span class="o-dot"></span>
+        <span class="o-line"></span>
+      </div>
+    </div>
+
+    <div class="section-prose reveal">
+      <p class="dropcap">The Eurasia Academy of Humanities is consistently ranked among the top specialized institutions in the world for humanities research. It has earned its renown as the world's leading center for the study of the "Lost Intellectual Heritage of 20th Century Eurasia," specializing in the works of thinkers suppressed by totalitarian regimes and in the recovery of dispersed knowledge across the continent.</p>
+    </div>
+
+    <div class="highlight-box reveal">
+      <p class="hl-label">The Bridge-Scholar's Creed</p>
+      <blockquote>A luminous bridge between memory and possibility — where the deep past of Eurasia is meticulously studied not for nostalgia, but to illuminate the paths of its future.</blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-crest">
+    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M60 10 L100 30 L100 70 Q100 100 60 115 Q20 100 20 70 L20 30 Z" stroke="rgba(197,162,85,0.4)" stroke-width="1" fill="rgba(197,162,85,0.03)"/>
+      <path d="M38 72 Q50 52 60 72 Q70 52 82 72" stroke="rgba(197,162,85,0.5)" stroke-width="1.5" fill="none"/>
+      <circle cx="60" cy="45" r="3" fill="rgba(197,162,85,0.4)"/>
+    </svg>
+  </div>
+  <p class="footer-name">Eurasia Academy of Humanities</p>
+  <p class="footer-motto">Lux ex Pontibus</p>
+
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#history">History</a></li>
+    <li><a href="#pillars">Pillars</a></li>
+    <li><a href="#campus">Campus</a></li>
+    <li><a href="#reputation">Legacy</a></li>
+  </ul>
+
+  <div class="footer-address">
+    Telliskivi Creative Quarter, Tallinn, Estonia<br>
+    Originally est. Suur-Kloostri Street, 1925
+  </div>
+
+  <div class="footer-divider"></div>
+
+  <p class="footer-copy">© MMXXVI Eurasia Academy of Humanities · All Rights Reserved</p>
+</footer>
+
+<script>
+  // Scroll reveal animation
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
